@@ -29,6 +29,13 @@ const init = async () => {
 
   server.route(
   {
+    method: 'GET',
+    path: '/',
+    handler: async () => {
+      return 'Hello, use post /predict to get the api response'
+    }
+  }
+  {
     method: 'POST',
     path : '/predict',
     handler: async (request, h) => {
