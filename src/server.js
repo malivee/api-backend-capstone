@@ -34,7 +34,7 @@ const init = async () => {
     handler: async () => {
       return 'Hello, use post /predict to get the api response'
     }
-  }
+  },
   {
     method: 'POST',
     path : '/predict',
