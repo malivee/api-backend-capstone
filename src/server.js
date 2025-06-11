@@ -4,9 +4,6 @@ const path = require('path');
 
 const tfNode = require('@tensorflow/tfjs-node');
 
-const { createCanvas, loadImage } = require('canvas');
-const streamToBuffer = require('stream/consumers').buffer;
-
 let model;
 
 const loadModel = async () => {
@@ -21,53 +18,14 @@ const init = async () => {
 
   const server = Hapi.server({
     port: 5000,
-    host: 'localhost',
+    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
     routes: {
       cors: {
         origin: ['*'],
       },
-      // payload: {
-      //   maxBytes: 10485760,
-      //   output: 'stream',
-      //   parse: true,
-      //   multipart: true,
-      // },
+     
     },
   });
-
-  // server.route(
-  // {
-  //   method: 'GET',
-  //   path: '/',
-  //   options: {
-  //     payload: {
-  //       allow: 'multipart/form-data',
-  //       multipart: true,
-  //     },
-  //   },
-  //   handler: async (request, h) => {
-  //     try {
-  //       const { file } = request.payload;
-
-  //       const buffer = await streamToBuffer(file);
-
-  //       const img = await loadImage(buffer);
-  //       const canvas = createCanvas(img.width, img.height);
-  //       const ctx = canvas.getContext('2d');
-  //       ctx.drawImage(img, 0, 0);
-
-  //       const tfImage = tf.browser.fromPixels(canvas);
-  //       const predictions = await model.classify(tfImage);
-
-  //       return { predictions };
-  //     } catch (error) {
-  //       console.error('Prediction error:', error);
-  //       return h.response({ error: 'Prediction failed.' }).code(500);
-  //     }
-  //   },
-  // },
- 
-  // );
 
   server.route(
   {
