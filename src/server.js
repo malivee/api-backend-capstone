@@ -27,7 +27,7 @@ const init = async () => {
     },
   });
 
-  server.route(
+  server.route([
   {
     method: 'GET',
     path: '/',
@@ -52,7 +52,7 @@ const init = async () => {
 
       }
   },
-  }
+  }]
   )
 
   await server.start();
